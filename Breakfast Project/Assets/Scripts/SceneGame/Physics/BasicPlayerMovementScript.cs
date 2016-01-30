@@ -6,6 +6,8 @@ public class BasicPlayerMovementScript : MonoBehaviour
 //	public Sprite mySprite;
 	public LayerMask groundCheckMask;
 	
+	public float maxJumpTime;
+	
 	public Transform leftSensorTransform;
 	public Transform rightSensorTransform;
 	public Transform groundSensorTransform;
@@ -23,6 +25,9 @@ public class BasicPlayerMovementScript : MonoBehaviour
 	private Vector2 hitPointL = Vector2.zero;
 	private Vector2 hitPointG = Vector2.zero;
 	private Vector2 hitPointForward = Vector2.zero;
+	
+	private float _currentJumpTime;
+	private bool _canJump;
 
 	private Rigidbody2D myRigidbody;
 	private Transform myTransform;
@@ -38,6 +43,7 @@ public class BasicPlayerMovementScript : MonoBehaviour
 	void OnEnable () 
 	{
 		SoftPauseScript.instance.SoftUpdate += SoftUpdate;
+		
 	}
 	
 	void OnDisable () 
@@ -54,14 +60,29 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		Vector3 newVelocity = myRigidbody.velocity;
 
 		// Listen for button presses
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKey(KeyCode.Space))
 		{
-			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
-			{
-				newVelocity = myRigidbody.velocity;
-				newVelocity.y =  Constants.JUMP_FORCE;
-				myRigidbody.velocity = newVelocity;
-			}
+//			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
+//			{
+				_currentJumpTime += Time.deltaTime;
+				if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
+				{
+//					_currentJumpTime = 0f;
+				}
+
+				
+				if (_currentJumpTime >= maxJumpTime)
+				{
+					_canJump = false;
+				}
+				
+				if (_canJump)
+				{
+					newVelocity = myRigidbody.velocity;
+					newVelocity.y =  Constants.JUMP_FORCE;
+					myRigidbody.velocity = newVelocity;
+				}
+//			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.J))
@@ -72,6 +93,12 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		// Apply horizontal movement
 		newVelocity = myRigidbody.velocity;
 		newVelocity.x =  Input.GetAxis("Horizontal") * Constants.RUN_SPEED;
+		
+		// If we let go of the jump key cancel our ability to jump until we land again
+		if (Input.GetKeyUp(KeyCode.Space))
+		{
+			_canJump = false;
+		}
 
 		// If our front sensor hit something
 		if (isHitForward)
@@ -135,6 +162,8 @@ public class BasicPlayerMovementScript : MonoBehaviour
 			if (PlayerStateManager.instance.currentGroundState != Enums.PlayerGroundState.OnGround)
 			{
 				PlayerStateManager.instance.currentGroundState = Enums.PlayerGroundState.OnGround;
+				_canJump = true;
+				_currentJumpTime = 0f;
 			}
 		}
 

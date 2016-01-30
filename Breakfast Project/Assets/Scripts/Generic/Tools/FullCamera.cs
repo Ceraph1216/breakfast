@@ -100,7 +100,7 @@ public class FullCamera : MonoBehaviour
 	
 	void TrackPlayer() 
 	{
-		// By default the target x and y coordinates of the camera are it's current x and y coordinates.
+		// By default the target x and y coordinates of the camera are its current x and y coordinates.
 		float targetX = cameraTransform.position.x;
 		float targetY = cameraTransform.position.y;
 		
@@ -127,14 +127,7 @@ public class FullCamera : MonoBehaviour
 		//Debug.Log("HIGH CLAMP: " + ( playerTransform.position.x + maxXAndY.x ));
 		targetX = Mathf.Clamp( targetX, playerTransform.position.x + minXAndY.x, playerTransform.position.x + maxXAndY.x );
 		
-		/*if(PlayerStateManager.instance.currentBoostState == Enums.PlayerBoostState.Boosting) 
-		{
-			targetX = Mathf.Clamp( targetX, playerTransform.position.x + minXAndY.x, playerTransform.position.x + maxXAndY.x );
-		}
-		else 
-		{
-			targetX = Mathf.Clamp( targetX, playerTransform.position.x + maxXAndY.x, playerTransform.position.x + minXAndY.x );
-		}*/
+
 		targetY = Mathf.Clamp(targetY, playerTransform.position.y + minXAndY.y, playerTransform.position.y + maxXAndY.y);
 		
 		// Set the camera's position to the target position with the same z component.
