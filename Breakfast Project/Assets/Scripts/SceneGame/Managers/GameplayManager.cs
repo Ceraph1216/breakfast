@@ -31,6 +31,7 @@ public class GameplayManager : MonoBehaviour
 		DontDestroyOnLoad (gameObject);	
 	}
 	
+	public bool gotUp;
 	public bool hasHat;
 	public bool hasClothes;
 	public bool stoppedAlarm;
