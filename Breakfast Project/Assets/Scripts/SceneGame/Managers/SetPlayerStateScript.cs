@@ -4,8 +4,9 @@ using System.Collections;
 public class SetPlayerStateScript : MonoBehaviour 
 {
 	private Transform myTransform;
-//	public tk2dSpriteAnimator myAnimator;
-	public Animator myAnimator;
+
+	public Animator headAnimator;
+	public Animator bodyAnimator;
 
 	void Awake()
 	{
@@ -50,34 +51,28 @@ public class SetPlayerStateScript : MonoBehaviour
 			{
 				if (PlayerStateManager.instance.isMoving)
 				{
-					myAnimator.SetTrigger ("run");
-//					myAnimator.Play("run");
+					SetAnimatorTriggers("run");
 				}
 				else if (PlayerStateManager.instance.currentAttackState == Enums.PlayerAttackState.None)
 				{
-//					myAnimator.Play("idle");
-					myAnimator.SetTrigger ("idle");
+					SetAnimatorTriggers("idle");
 				}
 				break;
 			}
 			case Enums.PlayerGroundState.Rising:
 			{
-//				myAnimator.Play("jump");
-				myAnimator.SetTrigger ("jump");
+				SetAnimatorTriggers("jump");
 				break;
 			}
 			case Enums.PlayerGroundState.Falling:
 			{
-//				myAnimator.Play("fall");
-				myAnimator.SetTrigger ("fall");
+				SetAnimatorTriggers("fall");
 				break;
 			}
 			case Enums.PlayerGroundState.Landing:
 			{
 				if (PlayerStateManager.instance.currentAttackState == Enums.PlayerAttackState.None)
 				{
-//					myAnimator.Play("land");
-
 					// If you feel fancy add a landing animation
 				}
 				break;
@@ -110,8 +105,7 @@ public class SetPlayerStateScript : MonoBehaviour
 		{
 			case Enums.PlayerStunnedState.Hit:
 			{
-//				myAnimator.Play("hit");
-				myAnimator.SetTrigger ("hit");
+				SetAnimatorTriggers("hit");
 				break;
 			}
 		}
@@ -123,17 +117,21 @@ public class SetPlayerStateScript : MonoBehaviour
 		{
 			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
 			{
-//				myAnimator.Play("run");
-				myAnimator.SetTrigger ("run");
+				SetAnimatorTriggers("run");
 			}
 		}
 		else
 		{
 			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
 			{
-//				myAnimator.Play("idle");
-				myAnimator.SetTrigger ("idle");
+				SetAnimatorTriggers("idle");
 			}
 		}
+	}
+	
+	private void SetAnimatorTriggers(string p_trigger)
+	{
+		bodyAnimator.SetTrigger (p_trigger);
+		headAnimator.SetTrigger (p_trigger);
 	}
 }
