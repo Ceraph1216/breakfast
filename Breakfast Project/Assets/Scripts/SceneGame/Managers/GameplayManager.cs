@@ -37,8 +37,8 @@ public class GameplayManager : MonoBehaviour
 	public bool stoppedAlarm;
 	public bool brushedTeeth;
 	public bool openedDoor;
-	public bool hasCereal;
+	public bool hasMilk;
 	public bool pouredCereal;
 	
-	public string levelToLoad;
+	public string lastLevelbeaten;
 }
