@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BasicPlayerMovementScript : MonoBehaviour 
 {
-	public tk2dSprite mySprite;
+//	public Sprite mySprite;
 	public LayerMask groundCheckMask;
 	
 	public Transform leftSensorTransform;
@@ -77,7 +77,7 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		if (isHitForward)
 		{
 			// If we're trying to move toward the point we hit cancel movement
-			if (Mathf.Sign(newVelocity.x) == Mathf.Sign(mySprite.scale.x))
+			if (Mathf.Sign(newVelocity.x) == Mathf.Sign(myTransform.localScale.x))
 			{
 				newVelocity.x = 0;
 			}
@@ -85,24 +85,24 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		myRigidbody.velocity = newVelocity;
 
 		// Make sure the sprite is facing the right way
-		if (mySprite.scale.x > 0) // facing right
+		if (myTransform.localScale.x > 0) // facing right
 		{
 			if (Input.GetAxis("Horizontal") < 0) // Moving left
 			{
-				Vector3 newScale = mySprite.scale;
+				Vector3 newScale = myTransform.localScale;
 				newScale.x *= -1;
-				mySprite.scale = newScale;
+				myTransform.localScale = newScale;
 				hitboxes.localScale = newScale;
 			}
 		}
 
-		if (mySprite.scale.x < 0) // facing left
+		if (myTransform.localScale.x < 0) // facing left
 		{
 			if (Input.GetAxis("Horizontal") > 0) // Moving right
 			{
-				Vector3 newScale = mySprite.scale;
+				Vector3 newScale = myTransform.localScale;
 				newScale.x *= -1;
-				mySprite.scale = newScale;
+				myTransform.localScale = newScale;
 				hitboxes.localScale = newScale;
 			}
 		}
@@ -158,7 +158,7 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		
 		// Set the direction and distance of the ground check
 		Vector2 downDirection = new Vector2(0, -1);// -myTransform.up;
-		Vector2 forwardDirection = new Vector2(mySprite.scale.x, 0);
+		Vector2 forwardDirection = new Vector2(myTransform.localScale.x, 0);
 		float distanceSide = 1.5f;
 		float distanceGround = 1.5f;
 		float distanceFront = (_hitbox.size.x / 2f) + 0.5f;

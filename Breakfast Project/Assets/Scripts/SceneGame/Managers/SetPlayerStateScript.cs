@@ -4,7 +4,8 @@ using System.Collections;
 public class SetPlayerStateScript : MonoBehaviour 
 {
 	private Transform myTransform;
-	public tk2dSpriteAnimator myAnimator;
+//	public tk2dSpriteAnimator myAnimator;
+	public Animator myAnimator;
 
 	void Awake()
 	{
@@ -24,8 +25,6 @@ public class SetPlayerStateScript : MonoBehaviour
 		PlayerStateManager.instance.ChangeAttackState += ChangeAttackState;
 		PlayerStateManager.instance.ChangeStunnedState += ChangeStunnedState;
 		PlayerStateManager.instance.ChangeMoving += ChangeMoving;
-
-		myAnimator.AnimationCompleted = OnAnimationComplete;
 	}
 
 	void OnDisable()
@@ -51,29 +50,35 @@ public class SetPlayerStateScript : MonoBehaviour
 			{
 				if (PlayerStateManager.instance.isMoving)
 				{
-					myAnimator.Play("run");
+					myAnimator.SetTrigger ("run");
+//					myAnimator.Play("run");
 				}
 				else if (PlayerStateManager.instance.currentAttackState == Enums.PlayerAttackState.None)
 				{
-					myAnimator.Play("idle");
+//					myAnimator.Play("idle");
+					myAnimator.SetTrigger ("idle");
 				}
 				break;
 			}
 			case Enums.PlayerGroundState.Rising:
 			{
-				myAnimator.Play("jump");
+//				myAnimator.Play("jump");
+				myAnimator.SetTrigger ("jump");
 				break;
 			}
 			case Enums.PlayerGroundState.Falling:
 			{
-				myAnimator.Play("fall");
+//				myAnimator.Play("fall");
+				myAnimator.SetTrigger ("fall");
 				break;
 			}
 			case Enums.PlayerGroundState.Landing:
 			{
 				if (PlayerStateManager.instance.currentAttackState == Enums.PlayerAttackState.None)
 				{
-					myAnimator.Play("land");
+//					myAnimator.Play("land");
+
+					// If you feel fancy add a landing animation
 				}
 				break;
 			}
@@ -105,7 +110,8 @@ public class SetPlayerStateScript : MonoBehaviour
 		{
 			case Enums.PlayerStunnedState.Hit:
 			{
-				myAnimator.Play("hit");
+//				myAnimator.Play("hit");
+				myAnimator.SetTrigger ("hit");
 				break;
 			}
 		}
@@ -117,20 +123,17 @@ public class SetPlayerStateScript : MonoBehaviour
 		{
 			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
 			{
-				myAnimator.Play("run");
+//				myAnimator.Play("run");
+				myAnimator.SetTrigger ("run");
 			}
 		}
 		else
 		{
 			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
 			{
-				myAnimator.Play("idle");
+//				myAnimator.Play("idle");
+				myAnimator.SetTrigger ("idle");
 			}
 		}
-	}
-
-	private void OnAnimationComplete(tk2dSpriteAnimator anim, tk2dSpriteAnimationClip clip)
-	{
-		// Take care of animation end
 	}
 }
