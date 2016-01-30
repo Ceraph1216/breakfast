@@ -14,6 +14,13 @@ public class TopDownPlayer : MonoBehaviour
 	public Interactable currentInteractable;
 	public bool canInteract;
 	
+	private TopDownPlayerMovement _movement;
+	
+	void Awake ()
+	{
+		_movement = GetComponent<TopDownPlayerMovement> ();	
+	}
+	
 	void OnEnable () 
 	{
 		SoftPauseScript.instance.SoftUpdate += SoftUpdate;
@@ -38,10 +45,20 @@ public class TopDownPlayer : MonoBehaviour
 		{
 			if (currentInteractable != null)
 			{
-				currentInteractable.DoAction ();
 				canInteract = false;
+				currentInteractable.DoAction ();
 			}
 		}
+	}
+	
+	public void FreezePlayer ()
+	{
+		_movement.enabled = false;	
+	}
+
+	public void UnfreezePlayer ()
+	{
+		_movement.enabled = true;	
 	}
 	
 	private void CheckAnimators ()

@@ -46,6 +46,16 @@ public class Player : MonoBehaviour
 
 		StartCoroutine (SpawnPlayer ());
 	}
+	
+	public void FreezePlayer ()
+	{
+		_movement.enabled = false;	
+	}
+	
+	public void UnfreezePlayer ()
+	{
+		_movement.enabled = true;	
+	}
 
 	private IEnumerator SpawnPlayer ()
 	{
