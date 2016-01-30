@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClearText : Interactable 
+public class ClearText : Action 
 {
-	public Interactable actionInQueue;
+	public Action actionInQueue;
 
 	private TopDownPlayer _player;
 
@@ -20,10 +20,10 @@ public class ClearText : Interactable
 
 		if (actionInQueue != null)
 		{
-			_player.currentInteractable = actionInQueue;	
+			_player.currentAction = actionInQueue;	
 		} else
 		{
-			_player.currentInteractable = null;	
+			_player.currentAction = null;	
 		}
 	}
 }

@@ -11,7 +11,7 @@ public class TopDownPlayer : MonoBehaviour
 	public Animator headAnimator;
 	public Animator bodyAnimator;
 	
-	public Interactable currentInteractable;
+	public Action currentAction;
 	public bool canInteract;
 	
 	private TopDownPlayerMovement _movement;
@@ -44,10 +44,10 @@ public class TopDownPlayer : MonoBehaviour
 		
 		if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.E))
 		{
-			if (currentInteractable != null)
+			if (currentAction != null)
 			{
 				canInteract = false;
-				currentInteractable.DoAction ();
+				currentAction.DoAction ();
 			}
 		}
 	}

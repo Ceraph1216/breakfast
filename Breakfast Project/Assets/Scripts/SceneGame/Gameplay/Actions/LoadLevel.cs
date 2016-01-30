@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoadLevel : Interactable 
+public class LoadLevel : Action 
 {
 	public string levelToLoad;
 	

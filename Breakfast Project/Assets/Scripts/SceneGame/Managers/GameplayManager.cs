@@ -26,11 +26,18 @@ public class GameplayManager : MonoBehaviour
 		}
 	}
 	
+	void Awake ()
+	{
+		DontDestroyOnLoad (gameObject);	
+	}
+	
 	public bool hasHat;
 	public bool hasClothes;
+	public bool stoppedAlarm;
 	public bool brushedTeeth;
 	public bool openedDoor;
-	public bool hasMilk;
 	public bool hasCereal;
 	public bool pouredCereal;
+	
+	public string levelToLoad;
 }

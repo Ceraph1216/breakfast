@@ -32,6 +32,8 @@ public class BasicPlayerMovementScript : MonoBehaviour
 	private Rigidbody2D myRigidbody;
 	private Transform myTransform;
 	private BoxCollider2D _hitbox;
+	
+	private bool _canMove;
 
 	void Awake ()
 	{
@@ -43,7 +45,8 @@ public class BasicPlayerMovementScript : MonoBehaviour
 	void OnEnable () 
 	{
 		SoftPauseScript.instance.SoftUpdate += SoftUpdate;
-		
+		_canMove = true;
+		_canJump = true;
 	}
 	
 	void OnDisable () 
@@ -51,10 +54,28 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		SoftPauseScript.instance.SoftUpdate -= SoftUpdate;
 	}
 	
+	public void StopMovement ()
+	{
+		myRigidbody.velocity = Vector3.zero;
+		myRigidbody.isKinematic = true;
+		_canMove = false;
+	}
+	
+	public void StartMovement ()
+	{
+		myRigidbody.isKinematic = false;
+		_canMove = true;	
+	}
+	
 	// Update is called once per frame
 	void SoftUpdate (GameObject dispatcher) 
 	{
 		DrawRays();
+		
+		if (!_canMove)
+		{
+			return;	
+		}
 
 		// Get current velocity
 		Vector3 newVelocity = myRigidbody.velocity;

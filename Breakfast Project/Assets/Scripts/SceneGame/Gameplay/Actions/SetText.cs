@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetText : Interactable 
+public class SetText : Action 
 {
 	public bool freezePlayer;
 	public string text;
-	public Interactable actionInQueue;
+	public Action actionInQueue;
 	
 	private TopDownPlayer _player;
 	
@@ -25,10 +25,10 @@ public class SetText : Interactable
 		
 		if (actionInQueue != null)
 		{
-			_player.currentInteractable = actionInQueue;	
+			_player.currentAction = actionInQueue;	
 		} else
 		{
-			_player.currentInteractable = null;	
+			_player.currentAction = null;	
 		}
 	}
 }

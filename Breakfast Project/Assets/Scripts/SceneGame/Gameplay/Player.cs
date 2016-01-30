@@ -49,12 +49,12 @@ public class Player : MonoBehaviour
 	
 	public void FreezePlayer ()
 	{
-		_movement.enabled = false;	
+		_movement.StopMovement ();
 	}
 	
 	public void UnfreezePlayer ()
 	{
-		_movement.enabled = true;	
+		_movement.StartMovement ();	
 	}
 
 	private IEnumerator SpawnPlayer ()

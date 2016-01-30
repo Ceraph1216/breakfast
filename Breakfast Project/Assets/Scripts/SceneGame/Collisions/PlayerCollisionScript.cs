@@ -22,6 +22,10 @@ public class PlayerCollisionScript : MonoBehaviour
 		if (p_trig.gameObject.layer == Constants.HAZARD_LAYER_ID)
 		{
 			_player.Kill ();
+		} 
+		else if (p_trig.gameObject.layer == Constants.GOAL_LAYER_ID)
+		{
+			_player.FreezePlayer ();
 		}
 	}
 }

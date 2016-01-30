@@ -9,6 +9,7 @@ public class Constants : MonoBehaviour
 	public static int ENEMY_LAYER = 10;
 	public const int HAZARD_LAYER_ID = 12;
 	public const int INTERACT_LAYER_ID = 13;
+	public const int GOAL_LAYER_ID = 14;
 
 	// Game Dimensions
 	public static int SCREEN_WIDTH = 900;

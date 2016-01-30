@@ -14,12 +14,12 @@ public class CheckInteractable : MonoBehaviour
 	{
 		if (p_trig.gameObject.layer == Constants.INTERACT_LAYER_ID)
 		{
-			Interactable l_interact = p_trig.GetComponent<Interactable> ();
-			Debug.Log ("getting interactable: " + l_interact + " from: " + p_trig.name);
+			Action l_interact = p_trig.GetComponent<Action> ();
+//			Debug.Log ("getting interactable: " + l_interact + " from: " + p_trig.name);
 			
-			if (_player.currentInteractable == null)
+			if (_player.currentAction == null)
 			{
-				_player.currentInteractable = l_interact;
+				_player.currentAction = l_interact;
 			}
 		}
 	}
@@ -28,7 +28,7 @@ public class CheckInteractable : MonoBehaviour
 	{
 		if (p_trig.gameObject.layer == Constants.INTERACT_LAYER_ID)
 		{
-			_player.currentInteractable = null;
+			_player.currentAction = null;
 		}
 	}
 }
