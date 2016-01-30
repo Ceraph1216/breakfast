@@ -15,6 +15,7 @@ public class TopDownPlayer : MonoBehaviour
 	public bool canInteract;
 	
 	private TopDownPlayerMovement _movement;
+	private Rigidbody2D _rigidbody2D;
 	
 	void Awake ()
 	{
@@ -53,12 +54,12 @@ public class TopDownPlayer : MonoBehaviour
 	
 	public void FreezePlayer ()
 	{
-		_movement.enabled = false;	
+		_movement.StopMovement ();
 	}
 
 	public void UnfreezePlayer ()
 	{
-		_movement.enabled = true;	
+		_movement.StartMovement ();	
 	}
 	
 	private void CheckAnimators ()

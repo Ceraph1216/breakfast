@@ -48,6 +48,13 @@ public class TextManager : MonoBehaviour
 	
 	public void ClearText ()
 	{
+		TypewriterEffect l_typeWriter = label.gameObject.GetComponent<TypewriterEffect> ();
+		
+		if (l_typeWriter != null)
+		{
+			Destroy (l_typeWriter);
+		}
+		
 		label.text = "";	
 	}
 }

@@ -1,28 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetText : Interactable 
+public class ClearText : Interactable 
 {
-	public bool freezePlayer;
-	public string text;
 	public Interactable actionInQueue;
-	
+
 	private TopDownPlayer _player;
-	
+
 	void Awake ()
 	{
 		_player = GameObject.FindGameObjectWithTag ("Player").GetComponent<TopDownPlayer> ();	
 	}
-	
+
 	public override void DoAction ()
 	{
-		if (freezePlayer)
-		{
-			_player.FreezePlayer ();
-		}
+		_player.UnfreezePlayer ();
 		_player.canInteract = true;
-		TextManager.instance.SetText (text);
-		
+		TextManager.instance.ClearText ();
+
 		if (actionInQueue != null)
 		{
 			_player.currentInteractable = actionInQueue;	

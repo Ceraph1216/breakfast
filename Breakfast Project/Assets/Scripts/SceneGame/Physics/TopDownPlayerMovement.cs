@@ -13,6 +13,8 @@ public class TopDownPlayerMovement : MonoBehaviour
 	private FacingDirection _currentDirection;
 	private bool _wasIdle;
 	
+	private bool _canMove;
+	
 	private enum FacingDirection
 	{
 		None,
@@ -32,6 +34,7 @@ public class TopDownPlayerMovement : MonoBehaviour
 	{
 		SoftPauseScript.instance.SoftUpdate += SoftUpdate;
 		_currentDirection = FacingDirection.Down;
+		_canMove = true;
 	}
 
 	void OnDisable () 
@@ -45,33 +48,7 @@ public class TopDownPlayerMovement : MonoBehaviour
 		if (Input.GetAxis ("Horizontal") == 0 && Input.GetAxis ("Vertical") == 0) 
 		{
 			_rigidbody2D.velocity = Vector3.zero;
-			if (!_wasIdle)
-			{
-				switch (_currentDirection)
-				{
-					case FacingDirection.Up:
-						{
-							SetAnimatorTriggers ("idleUp");
-							break;
-						}
-					case FacingDirection.Down:
-						{
-							SetAnimatorTriggers ("idleDown");	
-							break;
-						}
-					case FacingDirection.Left:
-						{
-							SetAnimatorTriggers ("idleLeft");
-							break;				
-						}
-					case FacingDirection.Right:
-						{
-							SetAnimatorTriggers ("idleRight");	
-							break;
-						}
-				}
-			}
-			_wasIdle = true;
+			PlayIdle ();
 			return;
 		}
 
@@ -81,6 +58,11 @@ public class TopDownPlayerMovement : MonoBehaviour
 
 	private void MovePlayer ()
 	{
+		if (!_canMove)
+		{
+			return;	
+		}
+		
 		Vector3 l_newVelocity = Vector3.zero;
 
 		l_newVelocity.x += Input.GetAxis ("Horizontal") * speed * Time.deltaTime;
@@ -91,6 +73,10 @@ public class TopDownPlayerMovement : MonoBehaviour
 
 	private void UpdateAnimation ()
 	{
+		if (!_canMove)
+		{
+			return;	
+		}
 		// Only update the animator if we have a new direction
 		FacingDirection l_newDirection = FacingDirection.None;
 		
@@ -145,5 +131,50 @@ public class TopDownPlayerMovement : MonoBehaviour
 	{
 		bodyAnimator.SetTrigger (p_trigger);
 		headAnimator.SetTrigger (p_trigger);
+	}
+	
+	private void PlayIdle ()
+	{
+		if (!_wasIdle)
+		{
+			switch (_currentDirection)
+			{
+				case FacingDirection.Up:
+					{
+						SetAnimatorTriggers ("idleUp");
+						break;
+					}
+				case FacingDirection.Down:
+					{
+						SetAnimatorTriggers ("idleDown");	
+						break;
+					}
+				case FacingDirection.Left:
+					{
+						SetAnimatorTriggers ("idleLeft");
+						break;				
+					}
+				case FacingDirection.Right:
+					{
+						SetAnimatorTriggers ("idleRight");	
+						break;
+					}
+			}
+		}
+		_wasIdle = true;
+	}
+	
+	public void StopMovement ()
+	{
+		PlayIdle ();
+//		_rigidbody2D.isKinematic = true;
+		_rigidbody2D.velocity = Vector3.zero;
+		_canMove = false;
+	}
+	
+	public void StartMovement ()
+	{
+//		_rigidbody2D.isKinematic = false;
+		_canMove = true;
 	}
 }

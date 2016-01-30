@@ -16,7 +16,11 @@ public class CheckInteractable : MonoBehaviour
 		{
 			Interactable l_interact = p_trig.GetComponent<Interactable> ();
 			Debug.Log ("getting interactable: " + l_interact + " from: " + p_trig.name);
-			_player.currentInteractable = l_interact;
+			
+			if (_player.currentInteractable == null)
+			{
+				_player.currentInteractable = l_interact;
+			}
 		}
 	}
 	
