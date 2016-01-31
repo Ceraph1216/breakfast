@@ -19,12 +19,14 @@ public class OscillateRotation : MonoBehaviour
 	void Awake ()
 	{
 		_transform = transform;	
+		
+		_startQuaternion = Quaternion.Euler (startRotation);
+		_endQuaternion = Quaternion.Euler (endRotation);
 	}
 	
 	void OnEnable () 
 	{
-		_startQuaternion = Quaternion.Euler (startRotation);
-		_endQuaternion = Quaternion.Euler (endRotation);
+		
 		_forward = true;
 		_currentPercent = 0;
 		_currentIncrease = 0;

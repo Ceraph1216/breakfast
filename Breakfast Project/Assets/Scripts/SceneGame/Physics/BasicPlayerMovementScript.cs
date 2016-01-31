@@ -81,7 +81,7 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		Vector3 newVelocity = myRigidbody.velocity;
 
 		// Listen for button presses
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetButton("Jump"))
 		{
 //			if (PlayerStateManager.instance.currentGroundState == Enums.PlayerGroundState.OnGround)
 //			{
@@ -116,7 +116,7 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		newVelocity.x =  Input.GetAxis("Horizontal") * Constants.RUN_SPEED;
 		
 		// If we let go of the jump key cancel our ability to jump until we land again
-		if (Input.GetKeyUp(KeyCode.Space))
+		if (Input.GetButtonUp("Jump"))
 		{
 			_canJump = false;
 			

@@ -7,4 +7,12 @@ public class PlayButton : MonoBehaviour
 	{
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("DreamScene");	
 	}
+	
+	void Update ()
+	{
+		if (Input.GetButtonDown ("Submit"))
+		{
+			OnClick ();
+		}
+	}
 }

@@ -42,7 +42,7 @@ public class TopDownPlayer : MonoBehaviour
 			return;	
 		}
 		
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.E))
+		if (Input.GetButtonDown ("Submit"))
 		{
 			if (currentAction != null)
 			{
