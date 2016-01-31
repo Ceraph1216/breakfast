@@ -12,6 +12,19 @@ public class Player : MonoBehaviour
 	public Animator bodyAnimator;
 	
 	public ParticleSystem deathEffect;
+	
+	private bool _dead;
+	public bool dead
+	{
+		get
+		{
+			return _dead;
+		}
+		set
+		{
+			_dead = value;
+		}
+	}
 
 	private SpriteRenderer[] _spriteRenderers;
 	private Transform _transform;
@@ -35,7 +48,15 @@ public class Player : MonoBehaviour
 
 	public void Kill ()
 	{
-		// TODO: have death effect play
+		if (dead)
+		{
+			return;
+		}
+		
+		// TODO: remove enabling and disabling of game object when Unity releases 5.3.2 and fixes the errors being logged
+		deathEffect.gameObject.SetActive (true);
+		deathEffect.Play ();
+		deathEffect.enableEmission = true;
 		
 		for (int i = 0; i < _spriteRenderers.Length; i++)
 		{
@@ -43,6 +64,7 @@ public class Player : MonoBehaviour
 		}
 		_rigidbody2D.isKinematic = true;
 		_movement.enabled = false;
+		dead = true;
 
 		StartCoroutine (SpawnPlayer ());
 	}
@@ -61,7 +83,9 @@ public class Player : MonoBehaviour
 	{
 		yield return new WaitForSeconds (2f);
 
+		deathEffect.gameObject.SetActive (false);
 		_respawn.RespawnPlayer (_transform, _spriteRenderers, _rigidbody2D, _movement);
+		dead = false;
 	}
 	
 	private void CheckAnimators ()
