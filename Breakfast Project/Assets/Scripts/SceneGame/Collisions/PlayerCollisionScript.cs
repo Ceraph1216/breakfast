@@ -3,12 +3,10 @@ using System.Collections;
 
 public class PlayerCollisionScript : MonoBehaviour 
 {
-	private Rigidbody2D myRigidbody;
 	private Player _player;
 	
 	void Awake() 
 	{
-		myRigidbody = GetComponent<Rigidbody2D>();
 		_player = GetComponent<Player> ();
 	}
 	

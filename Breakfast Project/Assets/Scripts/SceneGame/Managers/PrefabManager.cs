@@ -5,9 +5,11 @@ public class PrefabManager : MonoBehaviour
 {
 	// Prefabs
 	public GameObject testEnemy;
+	public GameObject projectile;
 
 	// Object Pools
 	public GameObjectPool testEnemyPool;
+	public GameObjectPool projectilePool;
 
 	static PrefabManager mInstance;
 	
@@ -30,6 +32,7 @@ public class PrefabManager : MonoBehaviour
 		mInstance = this;
 
 		testEnemyPool = new GameObjectPool(testEnemy, 1);
+		projectilePool = new GameObjectPool(projectile, 10);
 	}
 	
 	public GameObjectPool FindPoolForObject(GameObject obj)
@@ -40,6 +43,10 @@ public class PrefabManager : MonoBehaviour
 			if(obj.name.Contains("testEnemy"))
 			{
 				return testEnemyPool;
+			}
+			else if(obj.name.Contains("projectile"))
+			{
+				return projectilePool;
 			}
 		}
 		return null;
