@@ -45,6 +45,14 @@ public class OscillateRotation : MonoBehaviour
 			_currentIncrease = 0;
 			_currentPercent = 0;
 			_forward = !_forward;
+			
+			if (_forward)
+			{
+				_transform.localRotation = _startQuaternion;
+			} else
+			{
+				_transform.localRotation = _endQuaternion;
+			}
 			return;
 		}
 		
