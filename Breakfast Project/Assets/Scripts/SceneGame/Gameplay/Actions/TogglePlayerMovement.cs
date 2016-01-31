@@ -21,25 +21,13 @@ public class TogglePlayerMovement : Action
 	{
 		if (doImmediately)
 		{
-			if (topDown)
-			{
-				_TDPlayer.FreezePlayer ();
-			} else
-			{
-				_player.FreezePlayer ();
-			}
+			ToggleMovement ();
 		}
 	}
 
 	public override void DoAction ()
 	{
-		if (topDown)
-		{
-			_TDPlayer.UnfreezePlayer ();
-		} else
-		{
-			_player.UnfreezePlayer ();
-		}
+		ToggleMovement ();
 	}
 	
 	private void ToggleMovement ()
@@ -48,11 +36,7 @@ public class TogglePlayerMovement : Action
 		{
 			if (topDown)
 			{
-				//TODO: find a better way of doing this if we have time (HAH!)
-//				if (GameplayManager.instance.gotUp)
-//				{
-					_TDPlayer.UnfreezePlayer ();
-//				}
+				_TDPlayer.UnfreezePlayer ();
 			} else
 			{
 				_player.UnfreezePlayer ();
