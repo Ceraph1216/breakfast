@@ -119,6 +119,12 @@ public class BasicPlayerMovementScript : MonoBehaviour
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
 			_canJump = false;
+			
+			// make the arc a little smaller to allow for short hopping
+			if (myRigidbody.velocity.y > 0)
+			{
+				myRigidbody.AddForce (Vector2.down * 400f);
+			}
 		}
 
 		// If our front sensor hit something
