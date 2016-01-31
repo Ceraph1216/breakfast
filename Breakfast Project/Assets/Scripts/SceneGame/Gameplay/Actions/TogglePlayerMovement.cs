@@ -48,7 +48,11 @@ public class TogglePlayerMovement : Action
 		{
 			if (topDown)
 			{
-				_TDPlayer.UnfreezePlayer ();
+				//TODO: find a better way of doing this if we have time (HAH!)
+//				if (GameplayManager.instance.gotUp)
+//				{
+					_TDPlayer.UnfreezePlayer ();
+//				}
 			} else
 			{
 				_player.UnfreezePlayer ();
